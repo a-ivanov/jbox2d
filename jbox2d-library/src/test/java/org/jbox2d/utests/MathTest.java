@@ -26,24 +26,23 @@
  */
 package org.jbox2d.utests;
 
+import org.jbox2d.common.*;
+import org.junit.jupiter.api.Test;
+
 import java.util.Random;
 
-import org.jbox2d.common.Mat22;
-import org.jbox2d.common.Mat33;
-import org.jbox2d.common.MathUtils;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.common.Vec3;
-
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * @author Daniel Murphy
  */
-public class MathTest extends TestCase {
+public class MathTest {
 
   private final static int MAX = (int) (Float.MAX_VALUE / 1000);
   private final static int RAND_ITERS = 100;
 
+  @Test
   public void testFastMath() {
     Random r = new Random();
     for (int i = 0; i < RAND_ITERS; i++) {
@@ -79,6 +78,7 @@ public class MathTest extends TestCase {
     }
   }
 
+  @Test
   public void testVec2() {
     Vec2 v = new Vec2();
     v.x = 0;
@@ -93,6 +93,7 @@ public class MathTest extends TestCase {
     assertFalse(v.equals(v2));
   }
 
+  @Test
   public void testMat22Unsafes() {
     Vec2 v1 = new Vec2(10, -1.3f);
     Mat22 m1 = new Mat22(1, 34, -3, 3);
@@ -113,6 +114,7 @@ public class MathTest extends TestCase {
     assertEquals(Mat22.mulTrans(m1, v1), vo);
   }
 
+  @Test
   public void testMat33() {
     Mat33 mat = new Mat33();
 
@@ -127,6 +129,7 @@ public class MathTest extends TestCase {
     assertEquals(new Vec2(0.22727273f, -3.318182f), mat.solve22(b2));
   }
 
+  @Test
   public void testVec3() {
     Vec3 v1 = new Vec3();
     Vec3 v2 = new Vec3();
