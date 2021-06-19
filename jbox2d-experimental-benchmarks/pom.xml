@@ -10,7 +10,7 @@
 	<name>jbox2d-experimental-benchmarks</name>
 	<packaging>jar</packaging>
 	<url>https://github.com/jbox2d/jbox2d</url>
-	<description>JMH benchmarks for jbox2d library experimental features.</description>
+	<description>JMH benchmarks for JBox2D library experimental features.</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.jbox2d</groupId>

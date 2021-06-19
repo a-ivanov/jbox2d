@@ -13,6 +13,7 @@
 		<module>jbox2d-testbed</module>
 		<module>jbox2d-testbed-jogl</module>
 		<module>jbox2d-testbed-javafx</module>
+		<module>jbox2d-experimental</module>
 		<module>jbox2d-experimental-benchmarks</module>
 	</modules>
 
