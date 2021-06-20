@@ -28,7 +28,6 @@ import org.jbox2d.collision.ManifoldPoint;
 import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
-import org.jbox2d.dynamics.contacts.ContactVelocityConstraint.VelocityConstraintPoint;
 import org.jbox2d.experimental.dynamics.Body;
 import org.jbox2d.experimental.dynamics.Fixture;
 import org.jbox2d.experimental.dynamics.TimeStep;
@@ -146,7 +145,7 @@ public class ContactSolver {
       // System.out.println("contact point count: " + pointCount);
       for (int j = 0; j < pointCount; j++) {
         ManifoldPoint cp = manifold.points[j];
-        VelocityConstraintPoint vcp = vc.points[j];
+        ContactVelocityConstraint.VelocityConstraintPoint vcp = vc.points[j];
 
         if (m_step.warmStarting) {
           // assert(cp.normalImpulse == 0);
@@ -192,7 +191,7 @@ public class ContactSolver {
       float tangenty = -1.0f * normal.x;
 
       for (int j = 0; j < pointCount; ++j) {
-        VelocityConstraintPoint vcp = vc.points[j];
+        ContactVelocityConstraint.VelocityConstraintPoint vcp = vc.points[j];
         float Px = tangentx * vcp.tangentImpulse + normal.x * vcp.normalImpulse;
         float Py = tangenty * vcp.tangentImpulse + normal.y * vcp.normalImpulse;
 
@@ -263,7 +262,7 @@ public class ContactSolver {
 
       int pointCount = vc.pointCount;
       for (int j = 0; j < pointCount; ++j) {
-        VelocityConstraintPoint vcp = vc.points[j];
+        ContactVelocityConstraint.VelocityConstraintPoint vcp = vc.points[j];
         Vec2 wmPj = worldManifold.points[j];
         final Vec2 vcprA = vcp.rA;
         final Vec2 vcprB = vcp.rB;
@@ -301,8 +300,8 @@ public class ContactSolver {
 
       // If we have two points, then prepare the block solver.
       if (vc.pointCount == 2) {
-        VelocityConstraintPoint vcp1 = vc.points[0];
-        VelocityConstraintPoint vcp2 = vc.points[1];
+        ContactVelocityConstraint.VelocityConstraintPoint vcp1 = vc.points[0];
+        ContactVelocityConstraint.VelocityConstraintPoint vcp2 = vc.points[1];
         float rn1A = vcp1.rA.x * vcnormal.y - vcp1.rA.y * vcnormal.x;
         float rn1B = vcp1.rB.x * vcnormal.y - vcp1.rB.y * vcnormal.x;
         float rn2A = vcp2.rA.x * vcnormal.y - vcp2.rA.y * vcnormal.x;
@@ -357,7 +356,7 @@ public class ContactSolver {
 
       // Solve tangent constraints
       for (int j = 0; j < pointCount; ++j) {
-        final VelocityConstraintPoint vcp = vc.points[j];
+        final ContactVelocityConstraint.VelocityConstraintPoint vcp = vc.points[j];
         final Vec2 a = vcp.rA;
         float dvx = -wB * vcp.rB.y + vB.x - vA.x + wA * a.y;
         float dvy = wB * vcp.rB.x + vB.y - vA.y - wA * a.x;
@@ -392,7 +391,7 @@ public class ContactSolver {
 
       // Solve normal constraints
       if (vc.pointCount == 1) {
-        final VelocityConstraintPoint vcp = vc.points[0];
+        final ContactVelocityConstraint.VelocityConstraintPoint vcp = vc.points[0];
 
         // Relative velocity at contact
         // Vec2 dv = vB + Cross(wB, vcp.rB) - vA - Cross(wA, vcp.rA);
@@ -463,8 +462,8 @@ public class ContactSolver {
         // = A * x + b'
         // b' = b - A * a;
 
-        final VelocityConstraintPoint cp1 = vc.points[0];
-        final VelocityConstraintPoint cp2 = vc.points[1];
+        final ContactVelocityConstraint.VelocityConstraintPoint cp1 = vc.points[0];
+        final ContactVelocityConstraint.VelocityConstraintPoint cp2 = vc.points[1];
         final Vec2 cp1rA = cp1.rA;
         final Vec2 cp1rB = cp1.rB;
         final Vec2 cp2rA = cp2.rA;

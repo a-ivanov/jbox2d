@@ -23,13 +23,13 @@
  ******************************************************************************/
 package org.jbox2d.experimental.dynamics;
 
-import org.jbox2d.collision.broadphase.BroadPhase;
 import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
+import org.jbox2d.experimental.collision.broadphase.BroadPhase;
 import org.jbox2d.experimental.dynamics.contacts.Contact;
 import org.jbox2d.experimental.dynamics.contacts.ContactEdge;
-import org.jbox2d.experimental.dynamics.joints.JointEdge;
+//import org.jbox2d.experimental.dynamics.joints.JointEdge;
 
 /**
  * A rigid body. These are created via World.createBody.
@@ -78,7 +78,7 @@ public class Body {
   public Fixture m_fixtureList;
   public int m_fixtureCount;
 
-  public JointEdge m_jointList;
+//  public JointEdge m_jointList;
   public ContactEdge m_contactList;
 
   public float m_mass, m_invMass;
@@ -132,7 +132,7 @@ public class Body {
     m_sweep.a = bd.angle;
     m_sweep.alpha0 = 0.0f;
 
-    m_jointList = null;
+//    m_jointList = null;
     m_contactList = null;
     m_prev = null;
     m_next = null;
@@ -403,7 +403,7 @@ public class Body {
   /**
    * Set the angular velocity.
    * 
-   * @param omega the new angular velocity in radians/second.
+   * @param w the new angular velocity in radians/second.
    */
   public final void setAngularVelocity(float w) {
     if (m_type == BodyType.STATIC) {
@@ -768,7 +768,7 @@ public class Body {
   /**
    * Gets a local point relative to the body's origin given a world point.
    * 
-   * @param a point in world coordinates.
+   * @param worldPoint a point in world coordinates.
    * @return the corresponding local point relative to the body's origin.
    */
   public final Vec2 getLocalPoint(Vec2 worldPoint) {
@@ -784,7 +784,7 @@ public class Body {
   /**
    * Gets a local vector given a world vector.
    * 
-   * @param a vector in world coordinates.
+   * @param worldVector a vector in world coordinates.
    * @return the corresponding local vector.
    */
   public final Vec2 getLocalVector(Vec2 worldVector) {
@@ -804,7 +804,7 @@ public class Body {
   /**
    * Get the world linear velocity of a world point attached to this body.
    * 
-   * @param a point in world coordinates.
+   * @param worldPoint a point in world coordinates.
    * @return the world velocity of a point.
    */
   public final Vec2 getLinearVelocityFromWorldPoint(Vec2 worldPoint) {
@@ -823,7 +823,7 @@ public class Body {
   /**
    * Get the world velocity of a local point.
    * 
-   * @param a point in local coordinates.
+   * @param localPoint a point in local coordinates.
    * @return the world velocity of a point.
    */
   public final Vec2 getLinearVelocityFromLocalPoint(Vec2 localPoint) {
@@ -1067,10 +1067,10 @@ public class Body {
     return m_fixtureList;
   }
 
-  /** Get the list of all joints attached to this body. */
-  public final JointEdge getJointList() {
-    return m_jointList;
-  }
+//  /** Get the list of all joints attached to this body. */
+//  public final JointEdge getJointList() {
+//    return m_jointList;
+//  }
 
   /**
    * Get the list of all contacts attached to this body.
@@ -1156,14 +1156,14 @@ public class Body {
       return false;
     }
 
-    // Does a joint prevent collision?
-    for (JointEdge jn = m_jointList; jn != null; jn = jn.next) {
-      if (jn.other == other) {
-        if (jn.joint.getCollideConnected() == false) {
-          return false;
-        }
-      }
-    }
+//    // Does a joint prevent collision?
+//    for (JointEdge jn = m_jointList; jn != null; jn = jn.next) {
+//      if (jn.other == other) {
+//        if (jn.joint.getCollideConnected() == false) {
+//          return false;
+//        }
+//      }
+//    }
 
     return true;
   }

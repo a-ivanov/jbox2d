@@ -21,42 +21,35 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package org.jbox2d.experimental.dynamics.joints;
+/**
+ * Created at 4:33:10 AM Jul 15, 2010
+ */
+package org.jbox2d.experimental.callbacks;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.World;
 
 /**
- * Mouse joint definition. This requires a world target point, tuning parameters, and the time step.
- * 
- * @author Daniel
+ * Callback class for ray casts.
+ * See {@link World#raycast(RayCastCallback, Vec2, Vec2)}
+ * @author Daniel Murphy
  */
-public class MouseJointDef extends JointDef {
-  /**
-   * The initial world target point. This is assumed to coincide with the body anchor initially.
-   */
-  public final Vec2 target = new Vec2();
+public interface RayCastCallback {
 
-  /**
-   * The maximum constraint force that can be exerted to move the candidate body. Usually you will
-   * express as some multiple of the weight (multiplier * mass * gravity).
-   */
-  public float maxForce;
-
-  /**
-   * The response speed.
-   */
-  public float frequencyHz;
-
-  /**
-   * The damping ratio. 0 = no damping, 1 = critical damping.
-   */
-  public float dampingRatio;
-
-  public MouseJointDef() {
-    super(JointType.MOUSE);
-    target.set(0, 0);
-    maxForce = 0;
-    frequencyHz = 5;
-    dampingRatio = .7f;
-  }
+	/**
+	 * Called for each fixture found in the query. You control how the ray cast
+	 * proceeds by returning a float:
+	 * return -1: ignore this fixture and continue
+	 * return 0: terminate the ray cast
+	 * return fraction: clip the ray to this point
+	 * return 1: don't clip the ray and continue
+	 * @param fixture the fixture hit by the ray
+	 * @param point the point of initial intersection
+	 * @param normal the normal vector at the point of intersection
+	 * @return -1 to filter, 0 to terminate, fraction to clip the ray for
+	 * closest hit, 1 to continue
+	 * @param fraction
+	 */
+	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction);
 }

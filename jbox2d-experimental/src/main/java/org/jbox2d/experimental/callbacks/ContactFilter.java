@@ -22,57 +22,39 @@
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 /**
- * Created at 7:23:39 AM Jan 20, 2011
+ * Created at 4:25:42 AM Jul 15, 2010
  */
-package org.jbox2d.experimental.dynamics.joints;
+package org.jbox2d.experimental.callbacks;
 
-import org.jbox2d.common.Vec2;
-import org.jbox2d.experimental.dynamics.Body;
+// updated to rev 100
+
+import org.jbox2d.experimental.dynamics.Filter;
+import org.jbox2d.experimental.dynamics.Fixture;
 
 /**
- * Friction joint definition.
- * 
+ * Implement this class to provide collision filtering. In other words, you can implement
+ * this class if you want finer control over contact creation.
  * @author Daniel Murphy
  */
-public class FrictionJointDef extends JointDef {
+public class ContactFilter {
 
+	/**
+	 * Return true if contact calculations should be performed between these two shapes.
+	 * @warning for performance reasons this is only called when the AABBs begin to overlap.
+	 * @param fixtureA
+	 * @param fixtureB
+	 * @return
+	 */
+	public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB){
+		Filter filterA = fixtureA.getFilterData();
+		Filter filterB = fixtureB.getFilterData();
 
-  /**
-   * The local anchor point relative to bodyA's origin.
-   */
-  public final Vec2 localAnchorA;
+		if (filterA.groupIndex == filterB.groupIndex && filterA.groupIndex != 0){
+			return filterA.groupIndex > 0;
+		}
 
-  /**
-   * The local anchor point relative to bodyB's origin.
-   */
-  public final Vec2 localAnchorB;
-
-  /**
-   * The maximum friction force in N.
-   */
-  public float maxForce;
-
-  /**
-   * The maximum friction torque in N-m.
-   */
-  public float maxTorque;
-
-  public FrictionJointDef() {
-    super(JointType.FRICTION);
-    localAnchorA = new Vec2();
-    localAnchorB = new Vec2();
-    maxForce = 0f;
-    maxTorque = 0f;
-  }
-
-  /**
-   * Initialize the bodies, anchors, axis, and reference angle using the world anchor and world
-   * axis.
-   */
-  public void initialize(Body bA, Body bB, Vec2 anchor) {
-    bodyA = bA;
-    bodyB = bB;
-    bA.getLocalPointToOut(anchor, localAnchorA);
-    bB.getLocalPointToOut(anchor, localAnchorB);
-  }
+		boolean collide = (filterA.maskBits & filterB.categoryBits) != 0 &&
+						  (filterA.categoryBits & filterB.maskBits) != 0;
+		return collide;
+	}
 }

@@ -23,12 +23,11 @@
  ******************************************************************************/
 package org.jbox2d.experimental.dynamics;
 
-import org.jbox2d.callbacks.ContactImpulse;
-import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.common.*;
-import org.jbox2d.dynamics.contacts.ContactSolver.ContactSolverDef;
+import org.jbox2d.experimental.callbacks.ContactImpulse;
+import org.jbox2d.experimental.callbacks.ContactListener;
 import org.jbox2d.experimental.dynamics.contacts.*;
-import org.jbox2d.experimental.dynamics.joints.Joint;
+//import org.jbox2d.experimental.dynamics.joints.Joint;
 
 /*
  Position Correction Notes
@@ -159,18 +158,18 @@ public class Island {
 
   public Body[] m_bodies;
   public Contact[] m_contacts;
-  public Joint[] m_joints;
+//  public Joint[] m_joints;
 
   public Position[] m_positions;
   public Velocity[] m_velocities;
 
   public int m_bodyCount;
-  public int m_jointCount;
+//  public int m_jointCount;
   public int m_contactCount;
 
   public int m_bodyCapacity;
   public int m_contactCapacity;
-  public int m_jointCapacity;
+//  public int m_jointCapacity;
 
   public Island() {
 
@@ -181,19 +180,19 @@ public class Island {
     // System.out.println("Initializing Island");
     m_bodyCapacity = bodyCapacity;
     m_contactCapacity = contactCapacity;
-    m_jointCapacity = jointCapacity;
+//    m_jointCapacity = jointCapacity;
     m_bodyCount = 0;
     m_contactCount = 0;
-    m_jointCount = 0;
+//    m_jointCount = 0;
 
     m_listener = listener;
 
     if (m_bodies == null || m_bodyCapacity > m_bodies.length) {
       m_bodies = new Body[m_bodyCapacity];
     }
-    if (m_joints == null || m_jointCapacity > m_joints.length) {
-      m_joints = new Joint[m_jointCapacity];
-    }
+//    if (m_joints == null || m_jointCapacity > m_joints.length) {
+//      m_joints = new Joint[m_jointCapacity];
+//    }
     if (m_contacts == null || m_contactCapacity > m_contacts.length) {
       m_contacts = new Contact[m_contactCapacity];
     }
@@ -222,13 +221,13 @@ public class Island {
   public void clear() {
     m_bodyCount = 0;
     m_contactCount = 0;
-    m_jointCount = 0;
+//    m_jointCount = 0;
   }
 
   private final ContactSolver contactSolver = new ContactSolver();
   private final Timer timer = new Timer();
   private final SolverData solverData = new SolverData();
-  private final ContactSolverDef solverDef = new ContactSolverDef();
+  private final ContactSolver.ContactSolverDef solverDef = new ContactSolver.ContactSolverDef();
 
   public void solve(Profile profile, TimeStep step, Vec2 gravity, boolean allowSleep) {
 
@@ -299,9 +298,9 @@ public class Island {
       contactSolver.warmStart();
     }
 
-    for (int i = 0; i < m_jointCount; ++i) {
-      m_joints[i].initVelocityConstraints(solverData);
-    }
+//    for (int i = 0; i < m_jointCount; ++i) {
+//      m_joints[i].initVelocityConstraints(solverData);
+//    }
 
     profile.solveInit.accum(timer.getMilliseconds());
 
@@ -309,9 +308,9 @@ public class Island {
     timer.reset();
     // System.out.println("island solving velocities");
     for (int i = 0; i < step.velocityIterations; ++i) {
-      for (int j = 0; j < m_jointCount; ++j) {
-        m_joints[j].solveVelocityConstraints(solverData);
-      }
+//      for (int j = 0; j < m_jointCount; ++j) {
+//        m_joints[j].solveVelocityConstraints(solverData);
+//      }
 
       contactSolver.solveVelocityConstraints();
     }
@@ -360,10 +359,10 @@ public class Island {
       boolean contactsOkay = contactSolver.solvePositionConstraints();
 
       boolean jointsOkay = true;
-      for (int j = 0; j < m_jointCount; ++j) {
-        boolean jointOkay = m_joints[j].solvePositionConstraints(solverData);
-        jointsOkay = jointsOkay && jointOkay;
-      }
+//      for (int j = 0; j < m_jointCount; ++j) {
+//        boolean jointOkay = m_joints[j].solvePositionConstraints(solverData);
+//        jointsOkay = jointsOkay && jointOkay;
+//      }
 
       if (contactsOkay && jointsOkay) {
         // Exit early if the position errors are small.
@@ -421,7 +420,7 @@ public class Island {
   }
 
   private final ContactSolver toiContactSolver = new ContactSolver();
-  private final ContactSolverDef toiSolverDef = new ContactSolverDef();
+  private final ContactSolver.ContactSolverDef toiSolverDef = new ContactSolver.ContactSolverDef();
 
   public void solveTOI(TimeStep subStep, int toiIndexA, int toiIndexB) {
     assert (toiIndexA < m_bodyCount);
@@ -566,10 +565,10 @@ public class Island {
     m_contacts[m_contactCount++] = contact;
   }
 
-  public void add(Joint joint) {
-    assert (m_jointCount < m_jointCapacity);
-    m_joints[m_jointCount++] = joint;
-  }
+//  public void add(Joint joint) {
+//    assert (m_jointCount < m_jointCapacity);
+//    m_joints[m_jointCount++] = joint;
+//  }
 
   private final ContactImpulse impulse = new ContactImpulse();
 

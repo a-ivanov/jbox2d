@@ -24,7 +24,6 @@
 package org.jbox2d.experimental.dynamics.contacts;
 
 
-import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.ContactID;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.ManifoldPoint;
@@ -32,6 +31,7 @@ import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
+import org.jbox2d.experimental.callbacks.ContactListener;
 import org.jbox2d.experimental.dynamics.Body;
 import org.jbox2d.experimental.dynamics.Fixture;
 import org.jbox2d.pooling.IWorldPool;

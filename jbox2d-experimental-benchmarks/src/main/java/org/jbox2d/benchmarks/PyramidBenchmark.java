@@ -47,7 +47,7 @@ public class PyramidBenchmark {
     }
 
     {
-      float a = .5f;
+      float a = 0.5f;
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(a, a);
 

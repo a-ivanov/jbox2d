@@ -21,55 +21,33 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package org.jbox2d.experimental.dynamics.joints;
+/**
+ * Created at 4:23:30 AM Jul 15, 2010
+ */
+package org.jbox2d.experimental.callbacks;
 
-import org.jbox2d.experimental.dynamics.Body;
-
-import java.util.ArrayList;
+import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.joints.Joint;
 
 /**
- * Definition for a {@link ConstantVolumeJoint}, which connects a group a bodies together so they
- * maintain a constant volume within them.
+ * Joints and fixtures are destroyed when their associated
+ * body is destroyed. Implement this listener so that you
+ * may nullify references to these joints and shapes.
+ * @author Daniel Murphy
  */
-public class ConstantVolumeJointDef extends JointDef {
-  public float frequencyHz;
-  public float dampingRatio;
-
-  ArrayList<Body> bodies;
-  ArrayList<DistanceJoint> joints;
-
-  public ConstantVolumeJointDef() {
-    super(JointType.CONSTANT_VOLUME);
-    bodies = new ArrayList<Body>();
-    joints = null;
-    collideConnected = false;
-    frequencyHz = 0.0f;
-    dampingRatio = 0.0f;
-  }
-
-  /**
-   * Adds a body to the group
-   *
-   * @param argBody
-   */
-  public void addBody(Body argBody) {
-    bodies.add(argBody);
-    if (bodies.size() == 1) {
-      bodyA = argBody;
-    }
-    if (bodies.size() == 2) {
-      bodyB = argBody;
-    }
-  }
-
-  /**
-   * Adds a body and the pre-made distance joint. Should only be used for deserialization.
-   */
-  public void addBodyAndJoint(Body argBody, DistanceJoint argJoint) {
-    addBody(argBody);
-    if (joints == null) {
-      joints = new ArrayList<DistanceJoint>();
-    }
-    joints.add(argJoint);
-  }
+public interface DestructionListener {
+	
+	/**
+	 * Called when any joint is about to be destroyed due
+	 * to the destruction of one of its attached bodies.
+	 * @param joint
+	 */
+	void sayGoodbye(Joint joint);
+	
+	/**
+	 * Called when any fixture is about to be destroyed due
+	 * to the destruction of its parent body.
+	 * @param fixture
+	 */
+	void sayGoodbye(Fixture fixture);
 }

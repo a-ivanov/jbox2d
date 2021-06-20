@@ -21,8 +21,22 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package org.jbox2d.experimental.dynamics.joints;
+/**
+ * Created at 3:43:53 AM Jul 7, 2010
+ */
+package org.jbox2d.experimental.callbacks;
 
-public enum JointType {
-  UNKNOWN, REVOLUTE, PRISMATIC, DISTANCE, PULLEY, MOUSE, GEAR, WHEEL, WELD, FRICTION, ROPE, CONSTANT_VOLUME, MOTOR
+import org.jbox2d.common.Settings;
+
+/**
+ * Contact impulses for reporting. Impulses are used instead of forces because sub-step forces may
+ * approach infinity for rigid body collisions. These match up one-to-one with the contact points in
+ * b2Manifold.
+ * 
+ * @author Daniel Murphy
+ */
+public class ContactImpulse {
+  public float[] normalImpulses = new float[Settings.maxManifoldPoints];
+  public float[] tangentImpulses = new float[Settings.maxManifoldPoints];
+  public int count;
 }

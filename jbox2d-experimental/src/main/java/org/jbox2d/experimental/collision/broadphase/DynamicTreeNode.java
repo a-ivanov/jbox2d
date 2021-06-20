@@ -21,45 +21,34 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package org.jbox2d.experimental.dynamics.joints;
+package org.jbox2d.experimental.collision.broadphase;
 
-import org.jbox2d.experimental.dynamics.Body;
+import org.jbox2d.collision.AABB;
 
-/**
- * Joint definitions are used to construct joints.
- * @author Daniel Murphy
- */
-public class JointDef {
+public class DynamicTreeNode {
+  /**
+   * Enlarged AABB
+   */
+  public final AABB aabb = new AABB();
 
-	public JointDef(JointType type){
-		this.type = type;
-		userData = null;
-		bodyA = null;
-		bodyB = null;
-		collideConnected = false;
-	}
-	/**
-	 * The joint type is set automatically for concrete joint types.
-	 */
-	public JointType type;
-	
-	/**
-	 * Use this to attach application specific data to your joints.
-	 */
-	public Object userData;
-	
-	/**
-	 * The first attached body.
-	 */
-	public Body bodyA;
-	
-	/**
-	 * The second attached body.
-	 */
-	public Body bodyB;
-	
-	/**
-	 * Set this flag to true if the attached bodies should collide.
-	 */
-	public boolean collideConnected;
+  public Object userData;
+
+  protected DynamicTreeNode parent;
+
+  protected DynamicTreeNode child1;
+  protected DynamicTreeNode child2;
+  protected final int id;
+  protected int height;
+
+  public Object getUserData() {
+    return userData;
+  }
+
+  public void setUserData(Object argData) {
+    userData = argData;
+  }
+
+  protected DynamicTreeNode(int id) {
+    this.id = id;
+  }
 }

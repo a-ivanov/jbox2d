@@ -21,12 +21,23 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package org.jbox2d.experimental.dynamics.joints;
+package org.jbox2d.experimental.callbacks;
 
-import org.jbox2d.common.Vec2;
+import org.jbox2d.collision.broadphase.DynamicTree;
 
-public class Jacobian {
-	public final Vec2 linearA = new Vec2();
-	public float angularA;
-	public float angularB;
+// update to rev 100
+
+/**
+ * callback for {@link DynamicTree}
+ * @author Daniel Murphy
+ *
+ */
+public interface TreeCallback {
+	
+	/**
+	 * Callback from a query request.  
+	 * @param proxyId the id of the proxy
+	 * @return if the query should be continued
+	 */
+	public boolean treeCallback(int proxyId);
 }

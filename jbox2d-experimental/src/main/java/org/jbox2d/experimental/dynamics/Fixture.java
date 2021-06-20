@@ -26,13 +26,13 @@ package org.jbox2d.experimental.dynamics;
 import org.jbox2d.collision.AABB;
 import org.jbox2d.collision.RayCastInput;
 import org.jbox2d.collision.RayCastOutput;
-import org.jbox2d.collision.broadphase.BroadPhase;
 import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.experimental.collision.broadphase.BroadPhase;
 import org.jbox2d.experimental.dynamics.contacts.Contact;
 import org.jbox2d.experimental.dynamics.contacts.ContactEdge;
 
@@ -411,8 +411,8 @@ public class Fixture {
    * Internal method
    * 
    * @param broadPhase
-   * @param xf1
-   * @param xf2
+   * @param transform1
+   * @param transform2
    */
   protected void synchronize(BroadPhase broadPhase, final Transform transform1,
       final Transform transform2) {

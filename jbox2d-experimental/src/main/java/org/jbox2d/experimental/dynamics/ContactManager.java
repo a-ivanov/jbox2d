@@ -23,10 +23,10 @@
  ******************************************************************************/
 package org.jbox2d.experimental.dynamics;
 
-import org.jbox2d.callbacks.ContactFilter;
-import org.jbox2d.callbacks.ContactListener;
-import org.jbox2d.callbacks.PairCallback;
-import org.jbox2d.collision.broadphase.BroadPhase;
+import org.jbox2d.experimental.callbacks.ContactFilter;
+import org.jbox2d.experimental.callbacks.ContactListener;
+import org.jbox2d.experimental.callbacks.PairCallback;
+import org.jbox2d.experimental.collision.broadphase.BroadPhase;
 import org.jbox2d.experimental.dynamics.contacts.Contact;
 import org.jbox2d.experimental.dynamics.contacts.ContactEdge;
 
