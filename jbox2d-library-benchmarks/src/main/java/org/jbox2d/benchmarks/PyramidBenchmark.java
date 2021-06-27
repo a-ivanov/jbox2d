@@ -20,7 +20,8 @@ public class PyramidBenchmark {
   private final int VELOCITY_ITERATIONS = 8;
   private final int POSITION_ITERATIONS = 3;
 
-  private int count = 50;
+  @Param({"20", "40", "80", "160"})
+  private int count;
 
   private World world;
 
